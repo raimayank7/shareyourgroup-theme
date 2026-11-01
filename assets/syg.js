@@ -1256,6 +1256,14 @@
       '.pref-src-head:hover{border-color:color-mix(in srgb,currentColor 45%,transparent)}.pref-src-head svg{width:18px;height:18px;flex:none}' +
       '.pref-src-head span{display:none}@media (min-width:1100px){.pref-src-head{padding:0 13px}.pref-src-head span{display:inline}}';
     document.head.appendChild(st);
+    // only where it fits: on a crowded phone header it steps aside (the footer button is still there)
+    var header = a.closest('header') || box, t = 0;
+    function fit() {
+      a.style.display = '';
+      if (document.documentElement.scrollWidth > innerWidth + 1 || header.scrollWidth > header.clientWidth + 1 || box.scrollWidth > box.clientWidth + 1) a.style.display = 'none';
+    }
+    fit(); setTimeout(fit, 1500);
+    addEventListener('resize', function () { clearTimeout(t); t = setTimeout(fit, 150); });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', add); else add();
 })();

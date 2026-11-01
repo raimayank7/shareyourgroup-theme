@@ -625,6 +625,7 @@ dialog.sheet[open]{animation:pop .22s ease}
 .pg-table tr:last-child td{border-bottom:0}
 .pg-table th{font:600 .74rem/1 var(--font-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--faint);background:var(--surface)}
 .pg-toc{display:block;margin:0 0 26px;padding:12px 16px;border-radius:14px;background:var(--surface);border:1px solid var(--line);font-size:.9rem;line-height:2}
+.pg-toc a{display:inline-block;padding:6px 2px;line-height:1.4}   /* comfortable 28px+ tap targets on phones */
 .pg-legal h2{font-size:1.35rem!important;scroll-margin-top:calc(var(--header-h) + 20px)}
 .pg-legal h3{font-size:1.05rem!important}
 .entry [data-syg="submit"] .tile,.entry [data-syg="contact-form"] .contact-form-widget{margin:8px auto 26px}

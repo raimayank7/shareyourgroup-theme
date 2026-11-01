@@ -1,0 +1,48 @@
+<!doctype html>
+<!-- Source of assets/brand/share-banner.jpg (the 1200x630 picture WhatsApp, Facebook and X show for a shared link).
+     Rebuild: msedge --headless --hide-scrollbars --window-size=1200,630 --screenshot=out.png scripts/share-banner.html -->
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1200px;height:630px;overflow:hidden}
+body{font-family:Inter,sans-serif;color:#eef2f7;background:#06080c;position:relative}
+.glow{position:absolute;border-radius:50%;filter:blur(90px)}
+.g1{width:520px;height:520px;left:-160px;top:-200px;background:rgba(37,211,102,.22)}
+.g2{width:560px;height:560px;right:-180px;bottom:-260px;background:rgba(34,211,238,.18)}
+.grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:48px 48px;mask-image:radial-gradient(ellipse at 30% 40%,#000 30%,transparent 75%)}
+.left{position:absolute;left:64px;top:60px;width:600px}
+.logo{height:58px;display:block}
+h1{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:60px;line-height:1.05;letter-spacing:-1.5px;margin-top:44px}
+h1 em{font-style:normal;color:#25d366}
+.sub{margin-top:22px;font-size:23px;color:#93a0b2;line-height:1.4}
+.chips{display:flex;gap:12px;margin-top:30px}
+.chip{border:1px solid rgba(255,255,255,.17);background:rgba(255,255,255,.05);border-radius:999px;padding:9px 18px;font-size:18px;font-weight:600}
+.chip b{color:#22d3ee}
+.foot{position:absolute;left:64px;bottom:46px;display:flex;align-items:center;gap:22px}
+.btn{background:#25d366;color:#03200e;font-weight:700;font-size:22px;border-radius:999px;padding:15px 30px}
+.url{font-size:21px;color:#93a0b2;font-weight:600}
+.cards{position:absolute;right:56px;top:150px;width:430px;display:flex;flex-direction:column;gap:16px}
+.card{background:#0c1016;border:1px solid rgba(255,255,255,.09);border-radius:20px;padding:18px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 20px 40px rgba(0,0,0,.35)}
+.card:nth-child(2){margin-left:-36px}
+.av{width:56px;height:56px;border-radius:16px;display:grid;place-items:center;font-family:'Space Grotesk';font-weight:700;font-size:22px;color:#06080c;flex:none}
+.meta{flex:1;min-width:0}
+.name{font-weight:700;font-size:19px}
+.cat{font-size:15px;color:#93a0b2;margin-top:4px}
+.join{background:rgba(37,211,102,.14);color:#25d366;border:1px solid rgba(37,211,102,.4);border-radius:12px;padding:9px 14px;font-weight:700;font-size:15px;white-space:nowrap}
+</style></head>
+<body>
+<div class="glow g1"></div><div class="glow g2"></div><div class="grid"></div>
+<div class="left">
+  <img class="logo" src="../assets/brand/logo-dark.svg" alt="">
+  <h1>Find &amp; share <em>WhatsApp groups</em> and channels.</h1>
+  <p class="sub">Join in one tap, or list your own group free.</p>
+  <div class="chips"><span class="chip"><b>✓</b> Free to list</span><span class="chip"><b>✓</b> No sign-up</span><span class="chip"><b>✓</b> Live in seconds</span></div>
+</div>
+<div class="cards">
+  <div class="card"><div class="av" style="background:#25d366">ED</div><div class="meta"><div class="name">Study Group</div><div class="cat">Education &amp; Exams</div></div><span class="join">Join group</span></div>
+  <div class="card"><div class="av" style="background:#22d3ee">TC</div><div class="meta"><div class="name">Tech News Daily</div><div class="cat">Channel · Technology</div></div><span class="join">Follow</span></div>
+  <div class="card"><div class="av" style="background:#fbbf24">JB</div><div class="meta"><div class="name">Job Alerts</div><div class="cat">Jobs &amp; Careers</div></div><span class="join">Join group</span></div>
+</div>
+<div class="foot"><span class="btn">+ Submit your group</span><span class="url">www.shareyourgroup.com</span></div>
+</body></html>

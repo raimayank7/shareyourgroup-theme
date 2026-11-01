@@ -120,7 +120,7 @@ function doPost(e) {
    every 15 minutes (trigger made by setup) and about a minute after someone submits a group.
    Needs a GitHub access key saved under Project Settings → Script properties → GITHUB_TOKEN
    (fine-grained token, only this repo, permission "Actions: Read and write"). */
-const GH_REPO = 'gco-rai-mayank/shareyourgroup-theme';
+const GH_REPO = 'raimayank7/shareyourgroup-theme';
 const GH_WORKFLOW = 'sync-groups.yml';
 
 function kickGitHub() {

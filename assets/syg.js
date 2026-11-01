@@ -4,6 +4,38 @@
    Designed & Developed by Nivesh Sahayak (https://www.niveshsahayak.in/).
    All rights reserved: use or redistribution needs written permission and visible credit. See LICENSE.
    ========================================================== */
+/* ---------- Pages from GitHub ----------
+   A Blogger page holds only <div data-syg-page="privacy-policy">short fallback text</div>. The real content is
+   pages/privacy-policy.html next to this file: edit it and push, and the live page changes with nothing to paste.
+   The rest of this file starts once the page content is in place, so forms and tools inside pages work as before. */
+(function () {
+  'use strict';
+  var ME = document.currentScript || document.querySelector('script[src*="syg.js"]');
+  var BASE = ME && ME.src ? ME.src.replace(/syg\.js.*$/, '') : '';
+
+  function loadPages(done) {
+    var slots = document.querySelectorAll('[data-syg-page]'), left = slots.length;
+    if (!left) return done();
+    Array.prototype.forEach.call(slots, function (el) {
+      el.classList.add('is-loading');   // shimmer skeleton (syg.css) until the content arrives
+      fetch(BASE + 'pages/' + el.getAttribute('data-syg-page') + '.html', { cache: 'no-cache' })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+        .then(function (html) {
+          el.innerHTML = html;
+          Array.prototype.forEach.call(el.querySelectorAll('script'), function (old) {   // scripts added with innerHTML don't run
+            var s = document.createElement('script');
+            Array.prototype.forEach.call(old.attributes, function (a) { s.setAttribute(a.name, a.value); });
+            s.text = old.text;
+            old.parentNode.replaceChild(s, old);
+          });
+          el.classList.add('is-loaded');   // sections fade up one after another
+        })
+        .catch(function () {})   // keep the fallback text from the Blogger page
+        .then(function () { el.classList.remove('is-loading'); if (--left === 0) done(); });
+    });
+  }
+
+  function sygMain() {
 (function () {
   'use strict';
 
@@ -1165,4 +1197,8 @@
       go.href = 'https://api.whatsapp.com/send?phone=' + sel.value + num + (msg.value.trim() ? '&text=' + encodeURIComponent(msg.value.trim()) : '');
     });
   }
+})();
+  }
+
+  loadPages(sygMain);
 })();

@@ -714,9 +714,9 @@ html{scroll-padding-top:calc(var(--header-h) + 70px + var(--ad-top,0px))}
 @media (max-width:600px){dialog.sheet{margin-bottom:var(--ad-bottom,0px)}}
 
 /* ---------- Pages loaded from GitHub (data-syg-page): shimmer skeleton while loading, then sections fade up in turn ---------- */
-[data-syg-page].is-loading{position:relative;min-height:320px;overflow:hidden}
-[data-syg-page].is-loading>*{opacity:0}
-[data-syg-page].is-loading::before{content:"";position:absolute;inset:0;
+[data-syg-page]:not(.is-loaded):not(.is-failed){animation:sygWait 8s step-end;position:relative;min-height:320px;overflow:hidden}
+[data-syg-page]:not(.is-loaded):not(.is-failed)>*{animation:sygGone 8s step-end}
+[data-syg-page]:not(.is-loaded):not(.is-failed)::before{content:"";position:absolute;inset:0;
   --sk:color-mix(in srgb,currentColor 10%,transparent);
   background:
     linear-gradient(var(--sk),var(--sk)) 0 0/55% 28px no-repeat,
@@ -725,11 +725,16 @@ html{scroll-padding-top:calc(var(--header-h) + 70px + var(--ad-top,0px))}
     linear-gradient(var(--sk),var(--sk)) 0 102px/97% 14px no-repeat,
     linear-gradient(var(--sk),var(--sk)) 0 128px/70% 14px no-repeat,
     linear-gradient(var(--sk),var(--sk)) 0 172px/100% 120px no-repeat;
-  border-radius:16px}
-[data-syg-page].is-loading::after{content:"";position:absolute;inset:0;transform:translateX(-100%);
+  border-radius:16px;animation:sygDone 0s 8s forwards}
+[data-syg-page]:not(.is-loaded):not(.is-failed)::after{content:"";position:absolute;inset:0;transform:translateX(-100%);
   background:linear-gradient(90deg,transparent,color-mix(in srgb,currentColor 9%,transparent),transparent);
-  animation:sygShimmer 1.15s ease-in-out infinite}
+  animation:sygShimmer 1.15s ease-in-out infinite,sygDone 0s 8s forwards}
 @keyframes sygShimmer{to{transform:translateX(100%)}}
+/* Loading state from the first paint, before the script runs: the Blogger fallback text is hidden for at most 8 s,
+   so it comes back by itself if the script never loads (and at once, with .is-failed, if the page file can't be fetched) */
+@keyframes sygWait{0%,100%{-webkit-text-fill-color:transparent}}
+@keyframes sygGone{0%,100%{opacity:0}}
+@keyframes sygDone{to{opacity:0;visibility:hidden}}
 [data-syg-page].is-loaded>*{animation:sygPageIn .55s cubic-bezier(.2,.7,.2,1) both}
 [data-syg-page].is-loaded>*:nth-child(2){animation-delay:.06s}
 [data-syg-page].is-loaded>*:nth-child(3){animation-delay:.12s}
@@ -738,7 +743,7 @@ html{scroll-padding-top:calc(var(--header-h) + 70px + var(--ad-top,0px))}
 [data-syg-page].is-loaded>*:nth-child(n+6){animation-delay:.3s}
 @keyframes sygPageIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){
-  [data-syg-page].is-loading::after{display:none}
+  [data-syg-page]:not(.is-loaded):not(.is-failed)::after{display:none}
   [data-syg-page].is-loaded>*{animation:none}
 }
 

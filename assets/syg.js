@@ -1213,7 +1213,8 @@
     var root = document.documentElement, t = (root.getAttribute('data-theme') || root.className || '') + ' ' + (document.body.className || '');
     var dark = /dark|black/.test(t) || (!/light|sepia/.test(t) && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
     var box = document.createElement('div'), btn = document.createElement('div');
-    box.className = 'pref-source'; box.style.cssText = 'display:flex;justify-content:center;padding:16px 12px 4px;min-height:40px';
+    box.className = 'pref-source'; box.style.cssText = 'display:flex;justify-content:center;min-height:40px;padding:0 12px 28px;margin:0 auto 36px;max-width:1200px;' +
+      'border-bottom:1px solid color-mix(in srgb,currentColor 14%,transparent)';   // its own band, clear of the link columns
     btn.setAttribute('google-add-preferred-source-btn', ''); btn.setAttribute('data-theme', dark ? 'dark' : 'light');
     box.appendChild(btn); foot.insertBefore(box, foot.firstChild);
     var s = document.createElement('script'); s.async = true; s.src = 'https://news.google.com/swg/js/v1/publisher.js';
@@ -1238,6 +1239,7 @@
     var box = document.querySelector('.nav-actions, .ns-actions'), before = null;
     if (box) before = box.querySelector('[aria-label*="dark" i], [aria-label*="light" i]') || box.firstElementChild;
     else { var cta = document.querySelector('header .header-cta'); if (!cta) return; box = cta.parentNode; before = cta; }
+    var navLink = !document.querySelector('.nav-actions, .ns-actions') && document.querySelector('header nav a');   // no actions box: match the menu's text colour
     var a = document.createElement('a');
     a.className = 'pref-src-head';
     a.href = 'https://www.google.com/preferences/source?q=' + encodeURIComponent(location.hostname.replace(/^www\./, ''));
@@ -1250,6 +1252,7 @@
       '<path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>' +
       '</svg><span>Preferred source</span>';
     box.insertBefore(a, before);
+    if (navLink) a.style.color = getComputedStyle(navLink).color;
     var st = document.createElement('style');
     st.textContent = '.pref-src-head{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-width:38px;height:38px;padding:0 9px;box-sizing:border-box;' +
       'border-radius:999px;border:1px solid color-mix(in srgb,currentColor 22%,transparent);color:inherit;text-decoration:none;font:600 13px/1 system-ui,sans-serif;white-space:nowrap;flex:none}' +

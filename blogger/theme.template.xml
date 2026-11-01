@@ -22,6 +22,8 @@
   <link href='https://YOUR-GITHUB-USER.github.io/YOUR-REPO/assets/brand/apple-touch-icon.png' rel='apple-touch-icon'/>
   <title><b:if cond='data:view.isHomepage'><data:blog.title.escaped/> &#8212; Find &amp; Share WhatsApp Groups and Channels<b:else/><data:view.title.escaped/> | <data:blog.title.escaped/></b:if></title>
   <b:if cond='data:view.isPost'><meta content='article' property='og:type'/><b:else/><meta content='website' property='og:type'/></b:if>
+  <!-- static pages: breadcrumb data for search results (Home > page) -->
+  <b:if cond='data:view.isPage'><script type='application/ld+json'>{&quot;@context&quot;:&quot;https://schema.org&quot;,&quot;@type&quot;:&quot;BreadcrumbList&quot;,&quot;itemListElement&quot;:[{&quot;@type&quot;:&quot;ListItem&quot;,&quot;position&quot;:1,&quot;name&quot;:&quot;Home&quot;,&quot;item&quot;:&quot;<data:blog.homepageUrl/>&quot;},{&quot;@type&quot;:&quot;ListItem&quot;,&quot;position&quot;:2,&quot;name&quot;:&quot;<data:view.title.jsonEscaped/>&quot;}]}</script></b:if>
   <meta expr:content='data:blog.title' property='og:site_name'/>
   <meta expr:content='data:view.title' name='twitter:title'/>
   <b:if cond='data:view.isHomepage'><script type='application/ld+json'>{"@context":"https://schema.org","@type":"Organization","name":"ShareYourGroup","url":"<data:blog.homepageUrl/>","logo":"https://YOUR-GITHUB-USER.github.io/YOUR-REPO/assets/brand/favicon-512.png","sameAs":["https://www.instagram.com/YOUR-PAGE","https://www.facebook.com/YOUR-PAGE","https://www.reddit.com/user/YOUR-NAME/"]}</script></b:if>

@@ -1202,3 +1202,30 @@
 
   loadPages(sygMain);
 })();
+
+/* "Add as a preferred source on Google" (Google Search Top Stories): Google's official button at the top of the footer.
+   Docs: developers.google.com/search/docs/appearance/preferred-sources. If Google's script can't load (blocked or offline),
+   a plain link to the same Google page is shown instead. */
+;(function () {
+  function add() {
+    var foot = document.querySelector('footer');
+    if (!foot || document.querySelector('[google-add-preferred-source-btn]')) return;
+    var root = document.documentElement, t = (root.getAttribute('data-theme') || root.className || '') + ' ' + (document.body.className || '');
+    var dark = /dark|black/.test(t) || (!/light|sepia/.test(t) && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+    var box = document.createElement('div'), btn = document.createElement('div');
+    box.className = 'pref-source'; box.style.cssText = 'display:flex;justify-content:center;padding:16px 12px 4px;min-height:40px';
+    btn.setAttribute('google-add-preferred-source-btn', ''); btn.setAttribute('data-theme', dark ? 'dark' : 'light');
+    box.appendChild(btn); foot.insertBefore(box, foot.firstChild);
+    var s = document.createElement('script'); s.async = true; s.src = 'https://news.google.com/swg/js/v1/publisher.js';
+    document.head.appendChild(s);
+    setTimeout(function () {   // fallback: Google's deep link
+      if (btn.childNodes.length) return;
+      var a = document.createElement('a');
+      a.href = 'https://www.google.com/preferences/source?q=' + encodeURIComponent(location.hostname.replace(/^www\./, ''));
+      a.target = '_blank'; a.rel = 'noopener'; a.textContent = '★ Add us as a preferred source on Google';
+      a.style.cssText = 'display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border:1px solid currentColor;border-radius:999px;font:600 14px/1.2 system-ui,sans-serif;text-decoration:none;color:inherit;opacity:.85';
+      btn.appendChild(a);
+    }, 6000);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', add); else add();
+})();

@@ -422,6 +422,26 @@
     });
     return t.innerHTML;
   }
+  /* every sponsor in the shared list (the same sponsors as GroupChatOn's sites) joins the gadget's own cards, so a new
+     sponsor shows here without editing the theme. Own cards (Ko-fi, sister sites) are already above; India-only
+     offers only for visitors in India; a sponsor already in the gadget isn't added twice. */
+  (function () {
+    var have = {};
+    promos.forEach(function (h) { (h.match(/href="[^"]+"/g) || []).forEach(function (m) { have[m.slice(6, -1).replace(/&amp;/g, '&')] = 1; }); });
+    var E = function (t) { return String(t || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };
+    fetch('https://share.groupchaton.com/promos.json').then(function (r) { return r.json(); }).then(function (P) {
+      ((P && P.promos) || []).forEach(function (x) {
+        if (!x.href || x.own || x.family || have[x.href] || !(x.imgs && x.imgs.length)) return;
+        if (x.india && visitorCountry !== 'IN') return;
+        var a = '<a href="' + E(x.href) + '" rel="sponsored noopener" target="_blank">';
+        promos.push('<div>' + x.imgs.map(function (u) { return a + '<img class="promo-banner" src="' + E(u) + '" alt="' + E(x.title) + '" loading="lazy"></a>'; }).join('') +
+          '<b class="promo-title">' + E(x.title) + '</b><span class="promo-line">' + E(x.line) + '</span>' +
+          '<a class="cta-btn" href="' + E(x.href) + '" rel="sponsored noopener" target="_blank">' + E(x.cta || 'Learn more') + '</a>' + (x.small ? '<small>' + E(x.small) + '</small>' : '') + '</div>');
+        have[x.href] = 1;
+      });
+      promos.sort(function () { return Math.random() - .5; });   // mix the new ones in
+    }).catch(function () {});
+  })();
   var promoTurn = Math.floor(Math.random() * Math.max(promos.length, 1));   // each page starts on a different promo
   /* Ad slots take turns: an AdSense ad (when SYG.adSlot is set), then a promo card, and so on. */
   /* Each slot keeps the card (and banner) it got first, so when the list redraws (fresh data, a new

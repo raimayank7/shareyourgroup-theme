@@ -377,6 +377,18 @@
     if (!only && INDIA_OFFER.test(el.innerHTML)) only = 'IN';
     return !only || only.split(/[\s,]+/).indexOf(visitorCountry) > -1;
   }
+  /* the owner's GroupChatOn sites take turns with the sponsors too (labelled "from groupchaton") */
+  var FAMILY = [
+    ['https://infinity.groupchaton.com/', 'https://assets.infinity.groupchaton.com/assets/brand/favicon-192.png', 'Infinity', '609 free tools, no sign-up',
+     'PDF, image, video, QR and WhatsApp tools that run in your browser. Your files never leave your device.', 'Open the free tools', 'infinity.groupchaton.com'],
+    ['https://www.groupchaton.com/', 'https://assets.groupchaton.com/assets/brand/favicon-192.png', 'GroupChatOn Novels', 'Read Korean web novels free',
+     '2,000+ proofread chapters, like Trash of the Count’s Family, with new chapters every week.', 'Start reading', 'www.groupchaton.com'],
+    ['https://share.groupchaton.com/', 'https://share.groupchaton.com/brand/favicon-192.png', 'Share', 'WhatsApp groups by topic, one page each',
+     '2,400+ groups and channels with instant search, saved favourites and safety tips for every topic.', 'Browse groups', 'share.groupchaton.com']
+  ].map(function (f) {
+    return '<div data-label="From GroupChatOn"><a class="promo-ic is-mark" href="' + f[0] + '" rel="noopener" target="_blank" aria-label="' + f[2] + '"><img src="' + f[1] + '" alt="" width="84" height="84" loading="lazy"></a>' +
+      '<b class="promo-title">' + f[3] + '</b><span class="promo-line">' + f[4] + '</span><a class="cta-btn" href="' + f[0] + '" rel="noopener" target="_blank">' + f[5] + ' ↗</a><small>' + f[6] + '</small></div>';
+  });
   /* our own Ko-fi card takes turns with the sponsors (labelled as ours, not a sponsored link) */
   var KOFI = '<div data-label="From ShareYourGroup"><a class="promo-ic" href="https://ko-fi.com/mkr" rel="noopener" target="_blank" aria-label="Ko-fi">' +
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5z"/><path d="M7 2v3M11 2v3M15 2v3"/></svg></a>' +
@@ -395,6 +407,7 @@
     var split = kids.length && !loose && kids.every(function (k) { return k.tagName === 'DIV'; });
     var list = split ? kids.filter(forVisitor).map(function (k) { return k.outerHTML; }) : [html];
     if (split && !/ko-fi\.com/.test(html)) list.push(KOFI);
+    if (split) FAMILY.forEach(function (f) { list.push(f); });
     return list;
   })();
   function promoHtml(html) {
@@ -1299,9 +1312,8 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fix); else fix();
 })();
 
-/* From GroupChatOn (owner, 2026-11-02): ShareYourGroup shows the owner's GroupChatOn sites (Infinity tools, novels, Share).
-   Home: three cards (#gco-family) before the FAQ. Other pages: a compact strip at the top of the footer (.gco-strip).
-   Both are in blogger/theme.xml too; this adds them only when the uploaded theme doesn't have them yet (never twice).
+/* GroupChatOn links (owner, 2026-11-02): the GroupChatOn sites are promoted as cards in the sponsor rotation (see KOFI/FAMILY);
+   the earlier fixed section/footer strip is removed if an uploaded theme still has it.
    Also points the old GroupChatOn tool pages (www.groupchaton.com/p/...) to the same tools on infinity.groupchaton.com,
    including links inside pages that load later. Sponsor/campaign links are never touched. */
 ;(function () {
@@ -1321,62 +1333,10 @@
   }
   function fixAll() { [].forEach.call(document.querySelectorAll('a[href*="groupchaton.com/p/"]'), fixLink); }
 
-  var SITES = [
-    { k: 'inf', name: 'Infinity', kicker: '609 free online tools', url: INF, host: 'infinity.groupchaton.com',
-      mark: 'https://assets.infinity.groupchaton.com/assets/brand/gco-mark.svg', mini: '609 free online tools',
-      benefit: 'Every everyday file job, done free right in your browser.',
-      points: ['PDF, image, audio & video, text, QR, WhatsApp and developer tools, plus calculators',
-        'No sign-up, no watermark: your files stay on your device', 'Install it as an app, and it works offline too'],
-      btn: 'Open the free tools' },
-    { k: 'novels', name: 'GroupChatOn Novels', kicker: 'Korean web novels in English', url: 'https://www.groupchaton.com/', host: 'www.groupchaton.com',
-      mark: 'https://assets.groupchaton.com/assets/brand/favicon-192.png', mini: 'Korean web novels, free',
-      benefit: 'Read Korean web novels in English, free, chapter by chapter.',
-      points: ['2,000+ proofread chapters, like Trash of the Count’s Family',
-        'New chapters every week: action, fantasy and murim', 'A reading app that remembers your place and saves chapters'],
-      btn: 'Start reading free' },
-    { k: 'share', name: 'Share', kicker: 'WhatsApp groups by topic', url: 'https://share.groupchaton.com/', host: 'share.groupchaton.com',
-      mark: 'https://share.groupchaton.com/brand/share-mark.svg', mini: 'Groups & channels by topic',
-      benefit: 'Browse WhatsApp groups and channels, each with its own page.',
-      points: ['2,400+ listings in 21 categories, with instant search',
-        'Save your favourites and find the ones you viewed', 'Safety tips for each topic and a report button on every listing'],
-      btn: 'Browse groups on Share' }
-  ];
-  function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
-  var ARROW = '<svg aria-hidden="true" class="i" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"></path></svg>';
-  function card(s) {
-    return '<article class="gco-card gco-' + s.k + '"><div class="gco-top"><span class="gco-mark"><img alt="" decoding="async" height="38" loading="lazy" src="' + s.mark + '" width="38"/></span>' +
-      '<div><h3>' + esc(s.name) + '</h3><span class="gco-kicker">' + esc(s.kicker) + '</span></div></div>' +
-      '<p class="gco-benefit">' + esc(s.benefit) + '</p><ul>' + s.points.map(function (p) { return '<li>' + esc(p) + '</li>'; }).join('') + '</ul>' +
-      '<a class="btn gco-btn" href="' + s.url + '" rel="noopener" target="_blank">' + esc(s.btn) + ' ' + ARROW + '</a><span class="gco-url">' + s.host + '</span></article>';
-  }
-  function mini(s) {
-    return '<a class="gco-mini gco-' + s.k + '" href="' + s.url + '" rel="noopener" target="_blank"><img alt="" decoding="async" height="34" loading="lazy" src="' + s.mark + '" width="34"/>' +
-      '<span><strong>' + esc(s.name) + '</strong><small>' + esc(s.mini) + '</small></span>' + ARROW + '</a>';
-  }
   function add() {
     fixAll();
-    var body = document.body;
-    if (body.classList.contains('is-home')) {
-      if (!document.getElementById('gco-family')) {
-        var sec = document.createElement('section');
-        sec.className = 'block gco-family'; sec.id = 'gco-family'; sec.setAttribute('aria-labelledby', 'gco-title');
-        sec.innerHTML = '<div class="container"><div class="section-head"><div><span class="eyebrow">from groupchaton</span>' +
-          '<h2 id="gco-title">More free things you might be missing</h2></div></div>' +
-          '<p class="gco-lead">Our sister sites at GroupChatOn: free tools for your files, free novels to read and another way to browse WhatsApp groups. No sign-up on any of them.</p>' +
-          '<div class="gco-cards">' + SITES.map(card).join('') + '</div></div>';
-        var at = document.getElementById('faq') || document.querySelector('main .ad-wide');
-        if (at) at.parentNode.insertBefore(sec, at);
-        else { var rules = document.getElementById('rules'); if (rules) rules.parentNode.insertBefore(sec, rules.nextSibling); }
-      }
-    } else if (!document.querySelector('.gco-strip')) {
-      var grid = document.querySelector('.site-footer .footer-grid');
-      if (grid) {
-        var strip = document.createElement('nav');
-        strip.className = 'gco-strip'; strip.setAttribute('aria-label', 'From GroupChatOn');
-        strip.innerHTML = '<b>From GroupChatOn</b>' + SITES.map(mini).join('');
-        grid.parentNode.insertBefore(strip, grid);
-      }
-    }
+    // the GroupChatOn sites are now cards in the sponsor rotation (owner, 2026-11-02): drop the old fixed section/strip
+    [].forEach.call(document.querySelectorAll('#gco-family, .gco-strip'), function (n) { n.parentNode.removeChild(n); });
     setTimeout(fixAll, 2500);   // pages and posts that load from GitHub after this
   }
   // a link clicked before the late pass is fixed at the moment of the click

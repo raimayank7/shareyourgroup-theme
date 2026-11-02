@@ -283,7 +283,9 @@ kbd{font-family:var(--font-mono);font-size:.7rem;padding:2px 6px;border-radius:6
 .grid{grid-auto-flow:row dense}
 .g-pick{grid-row:span 2;position:relative;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;min-height:290px;padding:26px 12px 12px;border-radius:var(--radius);border:1px dashed var(--line-2);background:var(--surface);text-align:center;font-size:.88rem;overflow:hidden}
 .g-pick::before{content:'sponsored';position:absolute;top:9px;left:14px;font:600 .62rem/1 var(--font-mono);color:var(--faint);text-transform:uppercase;letter-spacing:.1em}
-.g-pick:has(> [data-label])::before{content:'from shareyourgroup'}   /* our own card (Ko-fi), not a sponsor */
+.g-pick:has(> [data-label])::before{content:'from shareyourgroup'}
+.g-pick:has(> [data-label='From GroupChatOn'])::before{content:'from groupchaton'}
+.g-pick .promo-ic.is-mark{background:none;padding:0;overflow:hidden}.g-pick .promo-ic.is-mark img{width:100%;height:100%;display:block;border-radius:inherit}   /* our own card (Ko-fi), not a sponsor */
 .g-pick>*{max-width:100%}
 .g-pick img{border-radius:12px;max-height:250px;width:auto;object-fit:contain}
 .g-pick a.cta-btn{display:inline-block;margin-top:8px;padding:8px 14px;border-radius:10px;background:var(--green);color:var(--green-ink);font-weight:600}

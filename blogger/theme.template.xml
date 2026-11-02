@@ -267,6 +267,25 @@ body#layout .section{margin:0 0 12px}
     </div>
   </section>
 
+  <!-- FROM GROUPCHATON (owner, 2026-11-02): the owner's other sites. Same text as in assets/syg.js (which adds it to older themes). -->
+  <section aria-labelledby='gco-title' class='block gco-family' id='gco-family'>
+    <div class='container'>
+      <div class='section-head'><div><span class='eyebrow'>from groupchaton</span><h2 id='gco-title'>More free things you might be missing</h2></div></div>
+      <p class='gco-lead'>Our sister sites at GroupChatOn: free tools for your files, free novels to read and another way to browse WhatsApp groups. No sign-up on any of them.</p>
+      <div class='gco-cards'>
+        <article class='gco-card gco-inf'><div class='gco-top'><span class='gco-mark'><img alt='' decoding='async' height='38' loading='lazy' src='https://assets.infinity.groupchaton.com/assets/brand/gco-mark.svg' width='38'/></span><div><h3>Infinity</h3><span class='gco-kicker'>609 free online tools</span></div></div>
+          <p class='gco-benefit'>Every everyday file job, done free right in your browser.</p><ul><li>PDF, image, audio &amp; video, text, QR, WhatsApp and developer tools, plus calculators</li><li>No sign-up, no watermark: your files stay on your device</li><li>Install it as an app, and it works offline too</li></ul>
+          <a class='btn gco-btn' href='https://infinity.groupchaton.com/' rel='noopener' target='_blank'>Open the free tools <svg aria-hidden='true' class='i' viewBox='0 0 24 24'><path d='M7 17 17 7M8 7h9v9'></path></svg></a><span class='gco-url'>infinity.groupchaton.com</span></article>
+        <article class='gco-card gco-novels'><div class='gco-top'><span class='gco-mark'><img alt='' decoding='async' height='38' loading='lazy' src='https://assets.groupchaton.com/assets/brand/favicon-192.png' width='38'/></span><div><h3>GroupChatOn Novels</h3><span class='gco-kicker'>Korean web novels in English</span></div></div>
+          <p class='gco-benefit'>Read Korean web novels in English, free, chapter by chapter.</p><ul><li>2,000+ proofread chapters, like Trash of the Count&#8217;s Family</li><li>New chapters every week: action, fantasy and murim</li><li>A reading app that remembers your place and saves chapters</li></ul>
+          <a class='btn gco-btn' href='https://www.groupchaton.com/' rel='noopener' target='_blank'>Start reading free <svg aria-hidden='true' class='i' viewBox='0 0 24 24'><path d='M7 17 17 7M8 7h9v9'></path></svg></a><span class='gco-url'>www.groupchaton.com</span></article>
+        <article class='gco-card gco-share'><div class='gco-top'><span class='gco-mark'><img alt='' decoding='async' height='38' loading='lazy' src='https://share.groupchaton.com/brand/share-mark.svg' width='38'/></span><div><h3>Share</h3><span class='gco-kicker'>WhatsApp groups by topic</span></div></div>
+          <p class='gco-benefit'>Browse WhatsApp groups and channels, each with its own page.</p><ul><li>2,400+ listings in 21 categories, with instant search</li><li>Save your favourites and find the ones you viewed</li><li>Safety tips for each topic and a report button on every listing</li></ul>
+          <a class='btn gco-btn' href='https://share.groupchaton.com/' rel='noopener' target='_blank'>Browse groups on Share <svg aria-hidden='true' class='i' viewBox='0 0 24 24'><path d='M7 17 17 7M8 7h9v9'></path></svg></a><span class='gco-url'>share.groupchaton.com</span></article>
+      </div>
+    </div>
+  </section>
+
   <!-- FAQ:START -->
   <section aria-labelledby='faq-title' class='block faq-block' id='faq'>
     <div class='container faq-wrap'>
@@ -374,6 +393,15 @@ body#layout .section{margin:0 0 12px}
 <!-- FOOTER:START -->
 <footer class='site-footer'>
   <div class='container'>
+    <!-- From GroupChatOn, compact (the home page has the full section instead) -->
+    <b:if cond='!data:view.isHomepage'>
+    <nav aria-label='From GroupChatOn' class='gco-strip'>
+      <b>From GroupChatOn</b>
+      <a class='gco-mini gco-inf' href='https://infinity.groupchaton.com/' rel='noopener' target='_blank'><img alt='' decoding='async' height='34' loading='lazy' src='https://assets.infinity.groupchaton.com/assets/brand/gco-mark.svg' width='34'/><span><strong>Infinity</strong><small>609 free online tools</small></span><svg aria-hidden='true' class='i' viewBox='0 0 24 24'><path d='M7 17 17 7M8 7h9v9'></path></svg></a>
+      <a class='gco-mini gco-novels' href='https://www.groupchaton.com/' rel='noopener' target='_blank'><img alt='' decoding='async' height='34' loading='lazy' src='https://assets.groupchaton.com/assets/brand/favicon-192.png' width='34'/><span><strong>GroupChatOn Novels</strong><small>Korean web novels, free</small></span><svg aria-hidden='true' class='i' viewBox='0 0 24 24'><path d='M7 17 17 7M8 7h9v9'></path></svg></a>
+      <a class='gco-mini gco-share' href='https://share.groupchaton.com/' rel='noopener' target='_blank'><img alt='' decoding='async' height='34' loading='lazy' src='https://share.groupchaton.com/brand/share-mark.svg' width='34'/><span><strong>Share</strong><small>Groups &amp; channels by topic</small></span><svg aria-hidden='true' class='i' viewBox='0 0 24 24'><path d='M7 17 17 7M8 7h9v9'></path></svg></a>
+    </nav>
+    </b:if>
     <div class='footer-grid'>
       <div class='footer-about'>
         <a aria-label='ShareYourGroup home' class='brand' href='/'>

@@ -1271,8 +1271,9 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', add); else add();
 })();
 
-/* Footer credit wording (owner, 2026-11-02): "Designed & Developed by: Nivesh Sahayak", the name linked to niveshsahayak.in.
-   Also corrects themes that were uploaded before the change. */
+/* Footer credit (owner, 2026-11-02): a "Designed & Developed by: Nivesh Sahayak" badge linked to niveshsahayak.in.
+   The badge (look, wording, link) comes from Nivesh Sahayak's shared file, so it is changed in one place for every site;
+   until that file loads, the plain text already reads "Designed & Developed by:". Also corrects themes uploaded earlier. */
 ;(function () {
   var RE = /(designed\s*&\s*developed|built)\s+by:?\s*$/i;
   function fix() {
@@ -1280,6 +1281,10 @@
       var t = a.previousSibling;
       if (t && t.nodeType === 3 && RE.test(t.nodeValue)) t.nodeValue = t.nodeValue.replace(RE, 'Designed & Developed by: ');
     });
+    if (!document.querySelector('script[src*="niveshsahayak.in/assets/credit.js"]')) {
+      var s = document.createElement('script'); s.async = true; s.src = 'https://assets.niveshsahayak.in/assets/credit.js';
+      document.head.appendChild(s);
+    }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fix); else fix();
 })();

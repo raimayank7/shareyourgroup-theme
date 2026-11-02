@@ -1270,3 +1270,16 @@
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', add); else add();
 })();
+
+/* Footer credit wording (owner, 2026-11-02): "Designed & Developed by: Nivesh Sahayak", the name linked to niveshsahayak.in.
+   Also corrects themes that were uploaded before the change. */
+;(function () {
+  var RE = /(designed\s*&\s*developed|built)\s+by:?\s*$/i;
+  function fix() {
+    [].forEach.call(document.querySelectorAll('a[href*="niveshsahayak.in"]'), function (a) {
+      var t = a.previousSibling;
+      if (t && t.nodeType === 3 && RE.test(t.nodeValue)) t.nodeValue = t.nodeValue.replace(RE, 'Designed & Developed by: ');
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fix); else fix();
+})();

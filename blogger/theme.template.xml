@@ -435,7 +435,7 @@ body#layout .section{margin:0 0 12px}
     <div class='footer-bottom'>
       <p>&#169; <span data-year='1'>2026</span> <a href='/'>ShareYourGroup</a>. All rights reserved. Not affiliated with WhatsApp or Meta.</p>
       <!-- EDIT: credit -->
-      <p class='credit'>Designed &amp; Developed by <a href='https://www.niveshsahayak.in/' rel='noopener' target='_blank'>Nivesh Sahayak</a></p>
+      <p class='credit'>Designed &amp; Developed by: <a href='https://www.niveshsahayak.in/' rel='noopener' target='_blank'>Nivesh Sahayak</a></p>
     </div>
   </div>
 </footer>

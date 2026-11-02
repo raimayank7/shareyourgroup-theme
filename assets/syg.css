@@ -747,3 +747,48 @@ html{scroll-padding-top:calc(var(--header-h) + 70px + var(--ad-top,0px))}
   [data-syg-page].is-loaded>*{animation:none}
 }
 
+
+/* FROM GROUPCHATON (owner, 2026-11-02) ----------------------------
+   Home: a full section of three cards (#gco-family). Other pages: a compact strip at the top of the footer (.gco-strip).
+   Both are in the theme and are also added by syg.js when an older uploaded theme lacks them. Brand colour per card = --c. */
+.gco-family .section-head{margin-bottom:8px}
+.gco-lead{color:var(--muted);max-width:62ch;margin:0 0 20px}
+.gco-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.gco-card{--c:#A04CB3;--c2:var(--c);--btn:linear-gradient(135deg,#A04CB3,#7d3590);position:relative;display:flex;flex-direction:column;min-width:0;padding:22px 20px 20px;border-radius:var(--radius);
+  border:1px solid var(--line);background:linear-gradient(160deg,color-mix(in srgb,var(--c) 11%,transparent),transparent 55%),var(--surface);overflow:hidden;
+  transition:transform .2s,border-color .2s,box-shadow .2s;animation:gcoIn .5s cubic-bezier(.2,.7,.2,1) both}
+.gco-card:nth-child(2){animation-delay:.07s}.gco-card:nth-child(3){animation-delay:.14s}
+.gco-card::before{content:"";position:absolute;inset:0 0 auto;height:4px;background:linear-gradient(90deg,var(--c),var(--c2))}
+.gco-card:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--c) 55%,transparent);box-shadow:0 18px 40px -22px color-mix(in srgb,var(--c) 70%,transparent)}
+.gco-novels{--c:#5FB34C;--btn:linear-gradient(135deg,#3f8f30,#2f6f23)}
+.gco-share{--c:#25D366;--c2:#128C7E;--btn:linear-gradient(135deg,#0f7f72,#0a5f55)}
+.gco-top{display:flex;align-items:center;gap:12px;margin-bottom:14px;min-width:0}
+.gco-mark{display:grid;place-items:center;flex:none;width:52px;height:52px;border-radius:14px;background:color-mix(in srgb,var(--c) 16%,var(--bg-elev));border:1px solid color-mix(in srgb,var(--c) 35%,transparent)}
+.gco-mark img{width:38px;height:38px;display:block}
+.gco-top h3{font-size:1.2rem;margin:0}
+.gco-kicker{display:block;margin-top:3px;font:600 .7rem/1.2 var(--font-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.gco-benefit{font-weight:600;margin:0 0 10px;font-size:.98rem}
+.gco-card ul{list-style:none;margin:0 0 18px;padding:0;color:var(--muted);font-size:.92rem;flex:1}
+.gco-card li{position:relative;padding-left:24px;margin:7px 0}
+.gco-card li::before{content:"";position:absolute;left:2px;top:.42em;width:12px;height:7px;border:solid var(--c);border-width:0 0 2.5px 2.5px;transform:rotate(-45deg)}
+.gco-card .gco-btn{width:100%;height:auto;min-height:46px;padding:10px 16px;color:#fff;background:var(--btn);box-shadow:0 10px 24px -14px var(--c);white-space:normal;text-align:center;line-height:1.2}
+.gco-card .gco-btn:hover{filter:brightness(1.08)}
+.gco-card .gco-btn .i{width:18px;height:18px}
+.gco-url{display:block;margin-top:9px;text-align:center;font:500 .72rem/1.3 var(--font-mono);color:var(--faint);overflow-wrap:anywhere}
+@keyframes gcoIn{from{opacity:0;transform:translateY(12px)}}
+@media (max-width:900px){.gco-cards{grid-template-columns:minmax(0,1fr)}}
+
+/* compact strip in the footer */
+.gco-strip{display:grid;grid-template-columns:auto repeat(3,minmax(0,1fr));align-items:center;gap:12px;padding:0 0 26px;margin:0 0 28px;border-bottom:1px solid var(--line)}
+.gco-strip>b{font:600 .72rem/1.3 var(--font-mono);text-transform:uppercase;letter-spacing:.1em;color:var(--faint);white-space:nowrap}
+.gco-mini{--c:#A04CB3;display:flex;align-items:center;gap:10px;min-width:0;min-height:56px;padding:9px 12px;border-radius:14px;border:1px solid var(--line);background:var(--surface);transition:border-color .2s,background .2s,transform .2s}
+.gco-mini:hover{border-color:color-mix(in srgb,var(--c) 55%,transparent);background:color-mix(in srgb,var(--c) 8%,var(--surface));transform:translateY(-2px)}
+.gco-mini.gco-novels{--c:#5FB34C}.gco-mini.gco-share{--c:#25D366}
+.gco-mini img{width:34px;height:34px;flex:none;border-radius:9px;background:color-mix(in srgb,var(--c) 16%,transparent);padding:3px}
+.gco-mini span{display:grid;min-width:0;line-height:1.3}
+.gco-mini strong{font-family:var(--font-display);font-size:.95rem}
+.gco-mini small{color:var(--muted);font-size:.8rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.gco-mini .i{width:16px;height:16px;margin-left:auto;color:var(--faint)}
+@media (max-width:1000px){.gco-strip{grid-template-columns:repeat(3,minmax(0,1fr))}.gco-strip>b{grid-column:1/-1}}
+@media (max-width:700px){.gco-strip{grid-template-columns:minmax(0,1fr)}}
+@media (prefers-reduced-motion:reduce){.gco-card{animation:none}.gco-card:hover,.gco-mini:hover{transform:none}}

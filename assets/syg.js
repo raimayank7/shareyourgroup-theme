@@ -370,10 +370,18 @@
   var visitorCountry = (function () {
     try { return /^Asia\/(Kolkata|Calcutta)$/.test(Intl.DateTimeFormat().resolvedOptions().timeZone) ? 'IN' : ''; } catch (e) { return ''; }
   })();
+  /* Indian offers (UPI apps, Airtel, Wealthy, anything priced in ₹) are for visitors in India even without data-country */
+  var INDIA_OFFER = /phon\.pe|phonepe\.com|gpay\.app|pay\.google\.com|airtel\.in|buildwealth\.in|₹/i;
   function forVisitor(el) {
     var only = (el.getAttribute('data-country') || '').toUpperCase();
+    if (!only && INDIA_OFFER.test(el.innerHTML)) only = 'IN';
     return !only || only.split(/[\s,]+/).indexOf(visitorCountry) > -1;
   }
+  /* our own Ko-fi card takes turns with the sponsors (labelled as ours, not a sponsored link) */
+  var KOFI = '<div data-label="From ShareYourGroup"><a class="promo-ic" href="https://ko-fi.com/mkr" rel="noopener" target="_blank" aria-label="Ko-fi">' +
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v8a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5z"/><path d="M7 2v3M11 2v3M15 2v3"/></svg></a>' +
+    '<b class="promo-title">Found your group here?</b><span class="promo-line">ShareYourGroup is free to browse and free to list your group on. A coffee on Ko-fi helps keep it running.</span>' +
+    '<a class="cta-btn" href="https://ko-fi.com/mkr" rel="noopener" target="_blank">Buy us a coffee</a><small>Any amount helps</small></div>';
   var promos = (function () {
     var src = qs('.promo-src'), p = src && (qs('.widget-content', src) || src), html = p ? p.innerHTML.trim() : '';
     if (src) src.parentNode.removeChild(src);
@@ -385,7 +393,9 @@
     kids = [].slice.call(box.content.children);
     var loose = [].some.call(box.content.childNodes, function (n) { return n.nodeType === 3 && n.nodeValue.trim(); });
     var split = kids.length && !loose && kids.every(function (k) { return k.tagName === 'DIV'; });
-    return split ? kids.filter(forVisitor).map(function (k) { return k.outerHTML; }) : [html];
+    var list = split ? kids.filter(forVisitor).map(function (k) { return k.outerHTML; }) : [html];
+    if (split && !/ko-fi\.com/.test(html)) list.push(KOFI);
+    return list;
   })();
   function promoHtml(html) {
     if (html.indexOf('promo-banner') < 0) return html;

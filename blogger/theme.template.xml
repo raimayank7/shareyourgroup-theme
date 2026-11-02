@@ -52,6 +52,8 @@
   </script>
 
   <!-- Google AdSense (auto ads) -->
+  <!-- owner rule: no ads at all on the important pages (privacy, disclaimer, terms, contact, about, comment policy, donations) -->
+  <script>/*<![CDATA[*/if(/\/p\/(privacy-policy|disclaimer|terms-of-use|terms|contact-support|contact-us|contact|about-us|about|ask-for-a-tool|comment-policy|donations)\.html$/.test(location.pathname)){(window.adsbygoogle=window.adsbygoogle||[]).pauseAdRequests=1;document.documentElement.className+=' no-ads-page';}/*]]>*/</script>
   <script async='async' crossorigin='anonymous' src='https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000'/>
 
   <b:if cond='data:view.isHomepage'>

@@ -367,6 +367,9 @@
      A promo with several <img class="promo-banner"> shows one of them at random each time.
      <div data-country="IN"> shows that promo only to visitors in India (told by the device's time zone,
      so nothing extra is fetched). */
+  /* owner rule: the important pages (privacy, disclaimer, terms, contact, about, comment policy) never show ads or sponsor cards */
+  var NO_ADS = /\/p\/(privacy-policy|disclaimer|terms-of-use|terms|contact-us|contact|about-us|about|comment-policy|donations)\.html$/.test(location.pathname);
+  if (NO_ADS) { try { (window.adsbygoogle = window.adsbygoogle || []).pauseAdRequests = 1; } catch (e) {} }
   var visitorCountry = (function () {
     try { return /^Asia\/(Kolkata|Calcutta)$/.test(Intl.DateTimeFormat().resolvedOptions().timeZone) ? 'IN' : ''; } catch (e) { return ''; }
   })();
@@ -395,6 +398,7 @@
     '<b class="promo-title">Found your group here?</b><span class="promo-line">ShareYourGroup is free to browse and free to list your group on. A coffee on Ko-fi helps keep it running.</span>' +
     '<a class="cta-btn" href="https://ko-fi.com/mkr" rel="noopener" target="_blank">Buy us a coffee</a><small>Any amount helps</small></div>';
   var promos = (function () {
+    if (NO_ADS) { var g = qs('.promo-src'); if (g) g.parentNode.removeChild(g); return []; }
     var src = qs('.promo-src'), p = src && (qs('.widget-content', src) || src), html = p ? p.innerHTML.trim() : '';
     if (src) src.parentNode.removeChild(src);
     // "full width responsive" would stretch the ad past its card on phones
@@ -429,6 +433,7 @@
     var have = {};
     promos.forEach(function (h) { (h.match(/href="[^"]+"/g) || []).forEach(function (m) { have[m.slice(6, -1).replace(/&amp;/g, '&')] = 1; }); });
     var E = function (t) { return String(t || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };
+    if (NO_ADS) return;
     fetch('https://share.groupchaton.com/promos.json').then(function (r) { return r.json(); }).then(function (P) {
       ((P && P.promos) || []).forEach(function (x) {
         if (!x.href || x.own || x.family || have[x.href] || !(x.imgs && x.imgs.length)) return;
@@ -450,7 +455,7 @@
   function adCard() {
     var n = adTurn++;
     if (adSlots[n] == null) {
-      var useAdsense = C.adSlot && (n % 2 === 0 || !promos.length);
+      var useAdsense = C.adSlot && !NO_ADS && (n % 2 === 0 || !promos.length);
       adSlots[n] = useAdsense
         ? '<div class="g-pick g-pick-gs"><ins class="adsbygoogle" data-ad-client="' + esc(C.adClient) + '" data-ad-format="rectangle" data-ad-slot="' + esc(C.adSlot) + '" data-full-width-responsive="false" style="display:block"></ins></div>'
         : promos.length ? '<div class="g-pick">' + promoHtml(promos[promoTurn++ % promos.length]) + '</div>' : '';

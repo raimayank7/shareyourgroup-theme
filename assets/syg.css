@@ -688,7 +688,7 @@ dialog.sheet[open]{animation:pop .22s ease}
    show an ad; only empty ("unfilled") slots are folded away, as Google allows.
    --ad-top / --ad-bottom are set by syg.js to the height of an anchor ad. */
 ins.adsbygoogle{display:block;max-width:100%;overflow:hidden}
-ins.adsbygoogle[data-ad-status='unfilled']{display:none!important}
+ins.adsbygoogle[data-ad-status^='unfill']{display:none!important}
 .g-pick.is-unfilled,.ad-wide.is-unfilled{display:none!important}
 
 /* auto ads dropped into a grid or flex row take a full row of their own */

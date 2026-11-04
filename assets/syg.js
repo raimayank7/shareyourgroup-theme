@@ -457,10 +457,19 @@
     if (adSlots[n] == null) {
       var useAdsense = C.adSlot && !NO_ADS && (n % 2 === 0 || !promos.length);
       adSlots[n] = useAdsense
-        ? '<div class="g-pick g-pick-gs"><ins class="adsbygoogle" data-ad-client="' + esc(C.adClient) + '" data-ad-format="rectangle" data-ad-slot="' + esc(C.adSlot) + '" data-full-width-responsive="false" style="display:block"></ins></div>'
+        ? '<div class="g-pick g-pick-gs" data-n="' + n + '"><ins class="adsbygoogle" data-ad-client="' + esc(C.adClient) + '" data-ad-format="rectangle" data-ad-slot="' + esc(C.adSlot) + '" data-full-width-responsive="false" style="display:block"></ins></div>'
         : promos.length ? '<div class="g-pick">' + promoHtml(promos[promoTurn++ % promos.length]) + '</div>' : '';
     }
     return adSlots[n];
+  }
+  /* an AdSense box that Google leaves empty, or that an ad blocker stops (some swap Google's script for a stub that
+     never fills anything), gets a sponsor card instead of folding away; the spot keeps that card on redraws */
+  function gsToPromo(box) {
+    if (!box || !box.classList.contains('g-pick-gs')) return;
+    if (!promos.length) { box.classList.add('is-unfilled'); return; }
+    var h = promoHtml(promos[promoTurn++ % promos.length]), n = +box.getAttribute('data-n');
+    box.className = 'g-pick'; box.removeAttribute('data-n'); box.innerHTML = h;
+    if (n >= 0) adSlots[n] = '<div class="g-pick">' + h + '</div>';
   }
 
   function buildExplorer() {
@@ -596,6 +605,7 @@
     if (!ins.offsetWidth) { if ((tries || 0) < 20) setTimeout(function () { pushAd(ins, (tries || 0) + 1); }, 250); return; }
     ins.setAttribute('data-pushed', '1');
     try { (window.adsbygoogle = window.adsbygoogle || []).push({}); } catch (e) {}
+    setTimeout(function () { if (ins.getAttribute('data-ad-status') !== 'filled') gsToPromo(ins.closest('.g-pick-gs')); }, 8000);
   }
   function byId(id) { return REG[id] || null; }
 
@@ -1032,7 +1042,9 @@
       root.style.setProperty('--ad-bottom', bottom + 'px');
       qsa('.g-pick, .ad-wide').forEach(function (box) {
         var ins = qs('ins.adsbygoogle', box);
-        if (ins) box.classList.toggle('is-unfilled', ins.getAttribute('data-ad-status') === 'unfilled');
+        var unfilled = !!ins && /^unfill/.test(ins.getAttribute('data-ad-status') || '');
+        if (unfilled && box.classList.contains('g-pick-gs')) gsToPromo(box);
+        else if (ins) box.classList.toggle('is-unfilled', unfilled);
       });
     }
     function later() { clearTimeout(t); t = setTimeout(sync, 120); }

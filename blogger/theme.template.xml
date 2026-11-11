@@ -15,7 +15,23 @@
   <meta content='width=device-width, initial-scale=1, viewport-fit=cover' name='viewport'/>
   <meta content='#06080c' name='theme-color'/>
   <meta content='YOUR-YANDEX-CODE' name='yandex-verification'/>
+  <!-- Share preview (WhatsApp, Facebook, X): the branded banner (assets/brand/share-banner.jpg, made from scripts/share-banner.html).
+       It goes before Blogger's own tags so the apps pick it first. Blog posts with their own picture keep it. -->
+  <b:if cond='data:view.isHomepage or data:view.isPage or !data:view.featuredImage'>
+  <meta content='https://YOUR-GITHUB-USER.github.io/YOUR-REPO/assets/brand/share-banner.jpg' property='og:image'/>
+  <meta content='1200' property='og:image:width'/>
+  <meta content='630' property='og:image:height'/>
+  <meta content='ShareYourGroup: find and share WhatsApp groups and channels' property='og:image:alt'/>
+  <meta content='https://YOUR-GITHUB-USER.github.io/YOUR-REPO/assets/brand/share-banner.jpg' name='twitter:image'/>
+  </b:if>
   <b:include data='blog' name='all-head-content'/>
+  <!-- SEO: descriptions for pages with no "Search description" of their own in Blogger.
+       (On those pages Blogger passes the blog's description through, so "has no description" can't be tested; they are matched by title.)
+       EDIT: if you give one of these pages a Search description in Blogger, delete its line here. -->
+  <b:if cond='data:view.isPage'>
+  <b:if cond='data:view.title == "Disclaimer"'><meta content='ShareYourGroup is an independent directory of user-submitted WhatsApp groups, not linked to WhatsApp or Meta. Read this before joining any group.' name='description'/>
+  </b:if>
+  </b:if>
   <!-- Logo + favicons (assets/brand on GitHub) -->
   <link href='https://YOUR-GITHUB-USER.github.io/YOUR-REPO/assets/brand/favicon.ico' rel='icon' sizes='any'/>
   <link href='https://YOUR-GITHUB-USER.github.io/YOUR-REPO/assets/brand/logo-mark-small.svg' rel='icon' type='image/svg+xml'/>
@@ -134,24 +150,24 @@ body#layout .section{margin:0 0 12px}
               <div class='mega-col mega-col-wide'>
                 <h5>Convert</h5>
                 <div class='tool-grid'>
-                  <a class='tool' href='https://infinity.groupchaton.com/2026/11/image-converter-jpg-png-and-webp-in-bulk.html' rel='noopener' target='_blank'><span class='ti'>&#128444;</span><span><b>Image converter</b><small>JPG, PNG, WebP</small></span></a>
-                  <a class='tool' href='https://infinity.groupchaton.com/2026/11/image-to-pdf-turn-photos-into-one-pdf.html' rel='noopener' target='_blank'><span class='ti'>&#128196;</span><span><b>Image &#8594; PDF</b><small>Photos into one PDF</small></span></a>
-                  <a class='tool' href='https://infinity.groupchaton.com/2026/11/pdf-to-image-convert-pdf-pages-to-jpg.html' rel='noopener' target='_blank'><span class='ti'>&#127748;</span><span><b>PDF &#8594; Image</b><small>Pages as pictures</small></span></a>
-                  <a class='tool' href='https://infinity.groupchaton.com/2026/11/pdf-to-text-copy-text-out-of-any-pdf.html' rel='noopener' target='_blank'><span class='ti'>&#128221;</span><span><b>PDF &#8594; Text</b><small>Copy text out</small></span></a>
-                  <a class='tool' href='https://infinity.groupchaton.com/2026/11/image-to-text-ocr-read-text-from-photos.html' rel='noopener' target='_blank'><span class='ti'>&#128269;</span><span><b>Image &#8594; Text</b><small>Read text in photos</small></span></a>
-                  <a class='tool' href='https://infinity.groupchaton.com/2026/11/speech-to-text-type-with-your-voice.html' rel='noopener' target='_blank'><span class='ti'>&#127897;</span><span><b>Audio &#8594; Text</b><small>Voice notes to text</small></span></a>
-                  <a class='tool' href='https://infinity.groupchaton.com/2026/11/text-to-speech-listen-to-any-text-read.html' rel='noopener' target='_blank'><span class='ti'>&#128266;</span><span><b>Text &#8594; Speech</b><small>Listen to any text</small></span></a>
-                  <a class='tool' href='https://infinity.groupchaton.com/2026/11/text-to-pdf-save-typed-text-as-pdf.html' rel='noopener' target='_blank'><span class='ti'>&#128195;</span><span><b>Text &#8594; PDF</b><small>Notes into a PDF</small></span></a>
-                  <a class='tool' href='https://infinity.groupchaton.com/2026/11/html-to-pdf-convert-html-code-to-pdf.html' rel='noopener' target='_blank'><span class='ti'>&#127760;</span><span><b>HTML &#8594; PDF</b><small>Web pages as PDF</small></span></a>
+                  <a class='tool' href='https://infinity.example.com/2026/11/image-converter-jpg-png-and-webp-in-bulk.html' rel='noopener' target='_blank'><span class='ti'>&#128444;</span><span><b>Image converter</b><small>JPG, PNG, WebP</small></span></a>
+                  <a class='tool' href='https://infinity.example.com/2026/11/image-to-pdf-turn-photos-into-one-pdf.html' rel='noopener' target='_blank'><span class='ti'>&#128196;</span><span><b>Image &#8594; PDF</b><small>Photos into one PDF</small></span></a>
+                  <a class='tool' href='https://infinity.example.com/2026/11/pdf-to-image-convert-pdf-pages-to-jpg.html' rel='noopener' target='_blank'><span class='ti'>&#127748;</span><span><b>PDF &#8594; Image</b><small>Pages as pictures</small></span></a>
+                  <a class='tool' href='https://infinity.example.com/2026/11/pdf-to-text-copy-text-out-of-any-pdf.html' rel='noopener' target='_blank'><span class='ti'>&#128221;</span><span><b>PDF &#8594; Text</b><small>Copy text out</small></span></a>
+                  <a class='tool' href='https://infinity.example.com/2026/11/image-to-text-ocr-read-text-from-photos.html' rel='noopener' target='_blank'><span class='ti'>&#128269;</span><span><b>Image &#8594; Text</b><small>Read text in photos</small></span></a>
+                  <a class='tool' href='https://infinity.example.com/2026/11/speech-to-text-type-with-your-voice.html' rel='noopener' target='_blank'><span class='ti'>&#127897;</span><span><b>Audio &#8594; Text</b><small>Voice notes to text</small></span></a>
+                  <a class='tool' href='https://infinity.example.com/2026/11/text-to-speech-listen-to-any-text-read.html' rel='noopener' target='_blank'><span class='ti'>&#128266;</span><span><b>Text &#8594; Speech</b><small>Listen to any text</small></span></a>
+                  <a class='tool' href='https://infinity.example.com/2026/11/text-to-pdf-save-typed-text-as-pdf.html' rel='noopener' target='_blank'><span class='ti'>&#128195;</span><span><b>Text &#8594; PDF</b><small>Notes into a PDF</small></span></a>
+                  <a class='tool' href='https://infinity.example.com/2026/11/html-to-pdf-convert-html-code-to-pdf.html' rel='noopener' target='_blank'><span class='ti'>&#127760;</span><span><b>HTML &#8594; PDF</b><small>Web pages as PDF</small></span></a>
                 </div>
               </div>
               <div class='mega-col'>
                 <h5>PDF &amp; links</h5>
-                <a class='tool' href='https://infinity.groupchaton.com/2026/11/merge-pdf-combine-pdf-files-free-online.html' rel='noopener' target='_blank'><span class='ti'>&#129513;</span><span><b>Merge PDFs</b><small>Join files into one</small></span></a>
-                <a class='tool' href='https://infinity.groupchaton.com/2026/11/split-pdf-extract-pages-from-pdf.html' rel='noopener' target='_blank'><span class='ti'>&#9986;</span><span><b>Split PDF</b><small>Pull out pages</small></span></a>
-                <a class='tool' href='https://infinity.groupchaton.com/2026/11/zip-and-unzip-files-online.html' rel='noopener' target='_blank'><span class='ti'>&#128476;</span><span><b>Compress files</b><small>Make files smaller</small></span></a>
-                <a class='tool' href='https://infinity.groupchaton.com/2026/11/qr-code-generator-free-qr-codes-for.html' rel='noopener' target='_blank'><span class='ti'>&#128307;</span><span><b>QR code</b><small>For your group link</small></span></a>
-                <a class='tool' href='https://infinity.groupchaton.com/2026/11/url-shortener-make-long-links-short.html' rel='noopener' target='_blank'><span class='ti'>&#128279;</span><span><b>URL shortener</b><small>Short, shareable links</small></span></a>
+                <a class='tool' href='https://infinity.example.com/2026/11/merge-pdf-combine-pdf-files-free-online.html' rel='noopener' target='_blank'><span class='ti'>&#129513;</span><span><b>Merge PDFs</b><small>Join files into one</small></span></a>
+                <a class='tool' href='https://infinity.example.com/2026/11/split-pdf-extract-pages-from-pdf.html' rel='noopener' target='_blank'><span class='ti'>&#9986;</span><span><b>Split PDF</b><small>Pull out pages</small></span></a>
+                <a class='tool' href='https://infinity.example.com/2026/11/zip-and-unzip-files-online.html' rel='noopener' target='_blank'><span class='ti'>&#128476;</span><span><b>Compress files</b><small>Make files smaller</small></span></a>
+                <a class='tool' href='https://infinity.example.com/2026/11/qr-code-generator-free-qr-codes-for.html' rel='noopener' target='_blank'><span class='ti'>&#128307;</span><span><b>QR code</b><small>For your group link</small></span></a>
+                <a class='tool' href='https://infinity.example.com/2026/11/url-shortener-make-long-links-short.html' rel='noopener' target='_blank'><span class='ti'>&#128279;</span><span><b>URL shortener</b><small>Short, shareable links</small></span></a>
               </div>
             </div>
           </details>
@@ -275,15 +291,15 @@ body#layout .section{margin:0 0 12px}
       <div class='section-head'><div><span class='eyebrow'>from groupchaton</span><h2 id='gco-title'>More free things you might be missing</h2></div></div>
       <p class='gco-lead'>Our sister sites at GroupChatOn: free tools for your files, free novels to read and another way to browse WhatsApp groups. No sign-up on any of them.</p>
       <div class='gco-cards'>
-        <article class='gco-card gco-inf'><div class='gco-top'><span class='gco-mark'><img alt='' decoding='async' height='38' loading='lazy' src='https://assets.infinity.groupchaton.com/assets/brand/gco-mark.svg' width='38'/></span><div><h3>Infinity</h3><span class='gco-kicker'>609 free online tools</span></div></div>
+        <article class='gco-card gco-inf'><div class='gco-top'><span class='gco-mark'><img alt='' decoding='async' height='38' loading='lazy' src='https://YOUR-GITHUB-USER.github.io/YOUR-REPO/assets/brand/gco-mark.svg' width='38'/></span><div><h3>Infinity</h3><span class='gco-kicker'>609 free online tools</span></div></div>
           <p class='gco-benefit'>Every everyday file job, done free right in your browser.</p><ul><li>PDF, image, audio &amp; video, text, QR, WhatsApp and developer tools, plus calculators</li><li>No sign-up, no watermark: your files stay on your device</li><li>Install it as an app, and it works offline too</li></ul>
-          <a class='btn gco-btn' href='https://infinity.groupchaton.com/' rel='noopener' target='_blank'>Open the free tools <svg aria-hidden='true' class='i' viewBox='0 0 24 24'><path d='M7 17 17 7M8 7h9v9'></path></svg></a><span class='gco-url'>infinity.groupchaton.com</span></article>
-        <article class='gco-card gco-novels'><div class='gco-top'><span class='gco-mark'><img alt='' decoding='async' height='38' loading='lazy' src='https://assets.groupchaton.com/assets/brand/favicon-192.png' width='38'/></span><div><h3>GroupChatOn Novels</h3><span class='gco-kicker'>Korean web novels in English</span></div></div>
+          <a class='btn gco-btn' href='https://infinity.example.com/' rel='noopener' target='_blank'>Open the free tools <svg aria-hidden='true' class='i' viewBox='0 0 24 24'><path d='M7 17 17 7M8 7h9v9'></path></svg></a><span class='gco-url'>infinity.example.com</span></article>
+        <article class='gco-card gco-novels'><div class='gco-top'><span class='gco-mark'><img alt='' decoding='async' height='38' loading='lazy' src='https://YOUR-GITHUB-USER.github.io/YOUR-REPO/assets/brand/favicon-192.png' width='38'/></span><div><h3>GroupChatOn Novels</h3><span class='gco-kicker'>Korean web novels in English</span></div></div>
           <p class='gco-benefit'>Read Korean web novels in English, free, chapter by chapter.</p><ul><li>2,000+ proofread chapters, like Trash of the Count&#8217;s Family</li><li>New chapters every week: action, fantasy and murim</li><li>A reading app that remembers your place and saves chapters</li></ul>
-          <a class='btn gco-btn' href='https://www.groupchaton.com/' rel='noopener' target='_blank'>Start reading free <svg aria-hidden='true' class='i' viewBox='0 0 24 24'><path d='M7 17 17 7M8 7h9v9'></path></svg></a><span class='gco-url'>www.groupchaton.com</span></article>
-        <article class='gco-card gco-share'><div class='gco-top'><span class='gco-mark'><img alt='' decoding='async' height='38' loading='lazy' src='https://share.groupchaton.com/brand/share-mark.svg' width='38'/></span><div><h3>Share</h3><span class='gco-kicker'>WhatsApp groups by topic</span></div></div>
+          <a class='btn gco-btn' href='https://www.example.com/' rel='noopener' target='_blank'>Start reading free <svg aria-hidden='true' class='i' viewBox='0 0 24 24'><path d='M7 17 17 7M8 7h9v9'></path></svg></a><span class='gco-url'>www.example.com</span></article>
+        <article class='gco-card gco-share'><div class='gco-top'><span class='gco-mark'><img alt='' decoding='async' height='38' loading='lazy' src='https://share.example.com/brand/share-mark.svg' width='38'/></span><div><h3>Share</h3><span class='gco-kicker'>WhatsApp groups by topic</span></div></div>
           <p class='gco-benefit'>Browse WhatsApp groups and channels, each with its own page.</p><ul><li>2,400+ listings in 21 categories, with instant search</li><li>Save your favourites and find the ones you viewed</li><li>Safety tips for each topic and a report button on every listing</li></ul>
-          <a class='btn gco-btn' href='https://share.groupchaton.com/' rel='noopener' target='_blank'>Browse groups on Share <svg aria-hidden='true' class='i' viewBox='0 0 24 24'><path d='M7 17 17 7M8 7h9v9'></path></svg></a><span class='gco-url'>share.groupchaton.com</span></article>
+          <a class='btn gco-btn' href='https://share.example.com/' rel='noopener' target='_blank'>Browse groups on Share <svg aria-hidden='true' class='i' viewBox='0 0 24 24'><path d='M7 17 17 7M8 7h9v9'></path></svg></a><span class='gco-url'>share.example.com</span></article>
       </div>
     </div>
   </section>
@@ -316,7 +332,7 @@ body#layout .section{margin:0 0 12px}
 <!-- FAQ:END -->
   <!-- AdSense multiplex unit -->
   <div class='container ad-wide'>
-    <ins class='adsbygoogle' data-ad-client='ca-pub-0000000000000000' data-ad-format='autorelaxed' data-ad-slot='4837738215' style='display:block'/>
+    <ins class='adsbygoogle' data-ad-client='ca-pub-0000000000000000' data-ad-format='autorelaxed' data-ad-slot='0000000000' style='display:block'/>
     <script>
     //<![CDATA[
     (adsbygoogle=window.adsbygoogle||[]).push({});
@@ -399,9 +415,9 @@ body#layout .section{margin:0 0 12px}
     <b:if cond='!data:view.isHomepage'>
     <nav aria-label='From GroupChatOn' class='gco-strip'>
       <b>From GroupChatOn</b>
-      <a class='gco-mini gco-inf' href='https://infinity.groupchaton.com/' rel='noopener' target='_blank'><img alt='' decoding='async' height='34' loading='lazy' src='https://assets.infinity.groupchaton.com/assets/brand/gco-mark.svg' width='34'/><span><strong>Infinity</strong><small>609 free online tools</small></span><svg aria-hidden='true' class='i' viewBox='0 0 24 24'><path d='M7 17 17 7M8 7h9v9'></path></svg></a>
-      <a class='gco-mini gco-novels' href='https://www.groupchaton.com/' rel='noopener' target='_blank'><img alt='' decoding='async' height='34' loading='lazy' src='https://assets.groupchaton.com/assets/brand/favicon-192.png' width='34'/><span><strong>GroupChatOn Novels</strong><small>Korean web novels, free</small></span><svg aria-hidden='true' class='i' viewBox='0 0 24 24'><path d='M7 17 17 7M8 7h9v9'></path></svg></a>
-      <a class='gco-mini gco-share' href='https://share.groupchaton.com/' rel='noopener' target='_blank'><img alt='' decoding='async' height='34' loading='lazy' src='https://share.groupchaton.com/brand/share-mark.svg' width='34'/><span><strong>Share</strong><small>Groups &amp; channels by topic</small></span><svg aria-hidden='true' class='i' viewBox='0 0 24 24'><path d='M7 17 17 7M8 7h9v9'></path></svg></a>
+      <a class='gco-mini gco-inf' href='https://infinity.example.com/' rel='noopener' target='_blank'><img alt='' decoding='async' height='34' loading='lazy' src='https://YOUR-GITHUB-USER.github.io/YOUR-REPO/assets/brand/gco-mark.svg' width='34'/><span><strong>Infinity</strong><small>609 free online tools</small></span><svg aria-hidden='true' class='i' viewBox='0 0 24 24'><path d='M7 17 17 7M8 7h9v9'></path></svg></a>
+      <a class='gco-mini gco-novels' href='https://www.example.com/' rel='noopener' target='_blank'><img alt='' decoding='async' height='34' loading='lazy' src='https://YOUR-GITHUB-USER.github.io/YOUR-REPO/assets/brand/favicon-192.png' width='34'/><span><strong>GroupChatOn Novels</strong><small>Korean web novels, free</small></span><svg aria-hidden='true' class='i' viewBox='0 0 24 24'><path d='M7 17 17 7M8 7h9v9'></path></svg></a>
+      <a class='gco-mini gco-share' href='https://share.example.com/' rel='noopener' target='_blank'><img alt='' decoding='async' height='34' loading='lazy' src='https://share.example.com/brand/share-mark.svg' width='34'/><span><strong>Share</strong><small>Groups &amp; channels by topic</small></span><svg aria-hidden='true' class='i' viewBox='0 0 24 24'><path d='M7 17 17 7M8 7h9v9'></path></svg></a>
     </nav>
     </b:if>
     <div class='footer-grid'>
@@ -445,9 +461,9 @@ body#layout .section{margin:0 0 12px}
         <h4>Free tools</h4>
         <ul>
           <li><a href='/p/send-direct-whatsapp-message-without.html'>WhatsApp without saving number</a></li>
-          <li><a href='https://infinity.groupchaton.com/2026/11/qr-code-generator-free-qr-codes-for.html' rel='noopener' target='_blank'>QR code for your group</a></li>
-          <li><a href='https://infinity.groupchaton.com/2026/11/image-to-pdf-turn-photos-into-one-pdf.html' rel='noopener' target='_blank'>Image &amp; PDF tools</a></li>
-          <li><a href='https://www.groupchaton.com/' rel='noopener' target='_blank'>All tools on GroupChatOn &#8599;</a></li>
+          <li><a href='https://infinity.example.com/2026/11/qr-code-generator-free-qr-codes-for.html' rel='noopener' target='_blank'>QR code for your group</a></li>
+          <li><a href='https://infinity.example.com/2026/11/image-to-pdf-turn-photos-into-one-pdf.html' rel='noopener' target='_blank'>Image &amp; PDF tools</a></li>
+          <li><a href='https://www.example.com/' rel='noopener' target='_blank'>All tools on GroupChatOn &#8599;</a></li>
         </ul>
       </nav>
       <nav aria-label='Legal'>

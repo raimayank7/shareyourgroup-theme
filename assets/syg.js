@@ -384,8 +384,8 @@
   var FAMILY = [
     ['https://infinity.groupchaton.com/', 'https://assets.infinity.groupchaton.com/assets/brand/favicon-192.png', 'Infinity', '609 free tools, no sign-up',
      'PDF, image, video, QR and WhatsApp tools that run in your browser. Your files never leave your device.', 'Open the free tools', 'infinity.groupchaton.com'],
-    ['https://www.groupchaton.com/', 'https://assets.groupchaton.com/assets/brand/favicon-192.png', 'GroupChatOn Novels', 'Read Korean web novels free',
-     '2,000+ proofread chapters, like Trash of the Count’s Family, with new chapters every week.', 'Start reading', 'www.groupchaton.com'],
+    ['https://novel.groupchaton.com/', 'https://assets.groupchaton.com/assets/brand/favicon-192.png', 'GroupChatOn Novels', 'Read Korean web novels free',
+     '2,000+ proofread chapters, like Trash of the Count’s Family, with new chapters every week.', 'Start reading', 'novel.groupchaton.com'],
     ['https://share.groupchaton.com/', 'https://share.groupchaton.com/brand/favicon-192.png', 'Share', 'WhatsApp groups by topic, one page each',
      '2,400+ groups and channels with instant search, saved favourites and safety tips for every topic.', 'Browse groups', 'share.groupchaton.com']
   ].map(function (f) {
@@ -1378,7 +1378,7 @@
       points: ['PDF, image, audio & video, text, QR, WhatsApp and developer tools, plus calculators',
         'No sign-up, no watermark: your files stay on your device', 'Install it as an app, and it works offline too'],
       btn: 'Open the free tools' },
-    { k: 'novels', name: 'GroupChatOn Novels', kicker: 'Korean web novels in English', url: 'https://www.groupchaton.com/', host: 'www.groupchaton.com',
+    { k: 'novels', name: 'GroupChatOn Novels', kicker: 'Korean web novels in English', url: 'https://novel.groupchaton.com/', host: 'novel.groupchaton.com',
       mark: 'https://assets.groupchaton.com/assets/brand/favicon-192.png', mini: 'Korean web novels, free',
       benefit: 'Read Korean web novels in English, free, chapter by chapter.',
       points: ['2,000+ proofread chapters, like Trash of the Count’s Family',
@@ -1431,5 +1431,13 @@
   }
   // a link clicked before the late pass is fixed at the moment of the click
   document.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('a[href*="groupchaton.com/p/"]'); if (a) fixLink(a); }, true);
+  /* the uploaded theme still carries the old novels links: the novels moved to novel.groupchaton.com in Nov 2026 */
+  function novelLinks() {
+    Array.prototype.slice.call(document.querySelectorAll('a[href="https://www.groupchaton.com/"]')).forEach(function (x) {
+      if (x.classList.contains('gco-novels') || (x.classList.contains('gco-btn') && /read/i.test(x.textContent))) x.setAttribute('href', 'https://novel.groupchaton.com/');
+    });
+    Array.prototype.slice.call(document.querySelectorAll('.gco-url')).forEach(function (x) { if (x.textContent.replace(/\s+/g, '') === 'www.groupchaton.com') x.textContent = 'novel.groupchaton.com'; });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', novelLinks); else novelLinks();
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', add); else add();
 })();

@@ -1,0 +1,10 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><title>ShareYourGroup contact relay</title></head><body><script>
+(function(){var API="https://formsubmit.co/ajax/08205137b14cf6d7ee97865c8e748e9c",OK=/^https:\/\/([a-z0-9-]+\.)*shareyourgroup\.com$|^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
+addEventListener("message",function(e){if(!OK.test(e.origin))return;var d=e.data;
+if(!d||d.ns!=="contact-send"||typeof d.body!=="string"||d.body.length>8000)return;
+function done(ok){try{e.source.postMessage({ns:"contact-done",id:d.id,ok:ok},e.origin)}catch(x){}}
+var j;try{j=JSON.parse(d.body)}catch(x){return done(false)}if(!j||typeof j!=="object")return done(false);
+fetch(API,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(j)})
+.then(function(r){return r.json().catch(function(){return{}}).then(function(b){var s=b&&b.success;done(r.ok&&s!==false&&s!=="false")})})
+.catch(function(){done(false)})});})();
+</script></body></html>

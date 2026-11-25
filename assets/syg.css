@@ -814,6 +814,7 @@ html:root{--font-body:'Inter','Inter Fallback',system-ui,-apple-system,'Segoe UI
   .brand{min-height:44px}
   footer li a,.footer li a{display:inline-flex;align-items:center;min-height:44px}
   main p a{padding-top:11px;padding-bottom:11px}
+  .g-cat{position:relative}.g-cat::after{content:"";position:absolute;inset:-8px -2px}
   .g-actions{min-width:0}.g-actions .btn{min-width:0;flex:1 1 auto}
   .nav-wrap .brand{min-width:0;flex:0 1 auto}
 }

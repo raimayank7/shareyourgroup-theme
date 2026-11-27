@@ -795,3 +795,31 @@ html{scroll-padding-top:calc(var(--header-h) + 70px + var(--ad-top,0px))}
 @media (max-width:1000px){.gco-strip{grid-template-columns:repeat(3,minmax(0,1fr))}.gco-strip>b{grid-column:1/-1}}
 @media (max-width:700px){.gco-strip{grid-template-columns:minmax(0,1fr)}}
 @media (prefers-reduced-motion:reduce){.gco-card{animation:none}.gco-card:hover,.gco-mini:hover{transform:none}}
+
+/* ===== P6 phone pass (26 Nov 2026) =====
+   1) Fallback fonts sized like Inter / Space Grotesk / JetBrains Mono, so the hero does not re-wrap and jump when the web fonts
+      arrive (measured 0.14 layout shift on a 375 px phone). Final look unchanged on every screen.
+   2) Up to 600 px: every tap target at least 44 px. Wider screens unchanged. */
+@font-face{font-family:'Inter Fallback';src:local('Arial'),local('Roboto'),local('Helvetica');size-adjust:106.7%}
+@font-face{font-family:'Space Grotesk Fallback';src:local('Arial Bold'),local('Arial'),local('Roboto'),local('Helvetica');size-adjust:100.7%}
+@font-face{font-family:'JetBrains Mono Fallback';src:local('Courier New'),local('Roboto Mono'),local('Courier');size-adjust:100%}
+html:root{--font-body:'Inter','Inter Fallback',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --font-display:'Space Grotesk','Space Grotesk Fallback',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono','JetBrains Mono Fallback',ui-monospace,SFMono-Regular,Menlo,monospace}
+@media (max-width:600px){
+  .icon-btn{min-width:44px;min-height:44px}
+  .g-actions .icon-btn,.nav-actions .icon-btn,.socials .icon-btn{width:44px;height:44px}
+  .chips .chip,.seg button,.faq-tabs button{min-height:44px}
+  .btn-sm,.cta-btn{min-height:44px}
+  .brand{min-height:44px}
+  footer li a,.footer li a{display:inline-flex;align-items:center;min-height:44px}
+  main p a{padding-top:11px;padding-bottom:11px}
+  .g-cat{position:relative}.g-cat::after{content:"";position:absolute;inset:-8px -2px}
+  .g-actions{min-width:0}.g-actions .btn{min-width:0;flex:1 1 auto}
+  .nav-wrap .brand{min-width:0;flex:0 1 auto}
+}
+@media (max-width:380px){
+  .nav-wrap{gap:6px}
+  .nav-wrap .brand .logo-img{height:30px;width:auto;max-width:100%}
+  .nav-actions{gap:4px}
+}
